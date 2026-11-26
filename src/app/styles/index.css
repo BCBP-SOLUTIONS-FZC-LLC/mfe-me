@@ -1,0 +1,42 @@
+@import 'tailwindcss';
+@config '../../../tailwind.config.js';
+/* All daisyUI themes, as mfe-dashboard ships: its theme picker sets `data-theme` on <html>, and that
+   stays when the user moves here inside web-shell. daisyAuraBridge.css maps whichever theme is active
+   onto the Aura tokens, so shipping only light and dark would leave another theme's variables undefined
+   (about 190 KB of CSS; revisit with the platform's CSS-ownership decision, LLD §15 #11). */
+@plugin "daisyui" {
+  themes: all;
+}
+@import './aura.css';
+@import './daisyAuraBridge.css';
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+    min-height: 100%;
+    background-color: var(--aura-canvas);
+    color: var(--aura-text);
+  }
+
+  #app {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+}
+
+/* Message text in the Aura message inks (WCAG AA in both themes): errors, warnings and "Saved". */
+.text-status-error { color: var(--aura-error-ink); }
+.text-status-warning { color: var(--aura-warning-ink); }
+.text-status-success { color: var(--aura-success-ink); }
+/* A notice: the surface with a coloured edge, so the colour is never the only signal and the text keeps AA. */
+.notice { border: 1px solid var(--aura-border); border-inline-start-width: 4px; border-radius: 0.5rem; background: var(--aura-surface); color: var(--aura-text); padding: 0.75rem 1rem; }
+.notice-error { border-inline-start-color: var(--aura-error-ink); }
+.notice-warning { border-inline-start-color: var(--aura-warning-ink); }
+.notice-info { border-inline-start-color: var(--aura-secondary-ink); }

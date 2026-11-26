@@ -1,0 +1,11 @@
+{
+  "access.title": "My access",
+  "access.roles": "Roles",
+  "access.role.owner": "Owner",
+  "access.role.admin": "Administrator",
+  "access.role.tenderAdmin": "Tender administrator",
+  "access.role.member": "Member",
+  "access.departments": "Departments",
+  "access.noDepartments": "You aren't in a department yet.",
+  "access.askAdmin": "Ask an administrator to change this."
+}

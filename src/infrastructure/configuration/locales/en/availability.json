@@ -1,0 +1,20 @@
+{
+  "availability.title": "Your availability",
+  "availability.failed": "We couldn't load your availability.",
+  "availability.status": "Status",
+  "availability.status.available": "Available",
+  "availability.status.busy": "Busy",
+  "availability.status.ooo": "Out of office",
+  "availability.from": "Away from",
+  "availability.until": "Back on",
+  "availability.note": "Note to colleagues",
+  "availability.noteHint": "Shown next to your name while you are away. Up to 500 characters.",
+  "availability.covering": "is covering for you.",
+  "availability.manageDelegations": "Manage delegations",
+  "availability.askCover": "Out of office with someone covering? Delegate your work",
+  "availability.err.invalidStatus": "Pick one of the three.",
+  "availability.err.windowRequired": "Enter when you are away and when you are back.",
+  "availability.err.windowTooLong": "An out-of-office can last up to 180 days.",
+  "availability.err.windowInPast": "The end can't be in the past.",
+  "availability.err.noChange": "There is nothing to save yet."
+}

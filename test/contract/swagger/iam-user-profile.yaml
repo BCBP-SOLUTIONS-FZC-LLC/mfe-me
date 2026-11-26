@@ -1,0 +1,1839 @@
+basePath: /api/v1
+definitions:
+  github_com_BCBP-SOLUTIONS-FZC-LLC_platform-gincommon_v2_internal_problem.FieldError:
+    properties:
+      field:
+        description: Field is the JSON path of the invalid field (e.g. "deadline",
+          "items[0].sku").
+        type: string
+      message:
+        description: |-
+          Message is a fixed phrase ("is required", "must be in the future"). It never
+          echoes the rejected value, which may be PII.
+        type: string
+    type: object
+  http.AvailabilityResp:
+    properties:
+      delegate_user_id:
+        example: b2c3d4e5-f6a7-8901-bcde-f12345678901
+        format: uuid
+        type: string
+      note:
+        example: Annual leave
+        type: string
+      ooo_from:
+        example: "2026-07-01T00:00:00Z"
+        format: date-time
+        type: string
+      ooo_until:
+        example: "2026-07-14T23:59:59Z"
+        format: date-time
+        type: string
+      status:
+        allOf:
+        - $ref: '#/definitions/http.AvailabilityStatus'
+        example: ooo
+    type: object
+  http.AvailabilityResponse:
+    properties:
+      delegate_user_id:
+        example: b2c3d4e5-f6a7-8901-bcde-f12345678901
+        format: uuid
+        type: string
+      note:
+        example: Annual leave
+        type: string
+      ooo_from:
+        example: "2026-07-01T00:00:00Z"
+        format: date-time
+        type: string
+      ooo_until:
+        example: "2026-07-14T23:59:59Z"
+        format: date-time
+        type: string
+      record_version:
+        example: 2
+        type: integer
+      status:
+        allOf:
+        - $ref: '#/definitions/http.AvailabilityStatus'
+        example: ooo
+      updated_at:
+        example: "2026-01-01T00:00:00Z"
+        format: date-time
+        type: string
+      user_id:
+        example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        format: uuid
+        type: string
+    type: object
+  http.AvailabilityStatus:
+    enum:
+    - available
+    - busy
+    - ooo
+    type: string
+    x-enum-varnames:
+    - AvailabilityStatusAvailable
+    - AvailabilityStatusBusy
+    - AvailabilityStatusOOO
+  http.BatchRequest:
+    properties:
+      ids:
+        items:
+          format: uuid
+          type: string
+        maxItems: 200
+        minItems: 1
+        type: array
+    required:
+    - ids
+    type: object
+  http.BatchUsersResponse:
+    properties:
+      missing:
+        items:
+          format: uuid
+          type: string
+        type: array
+      pagination:
+        $ref: '#/definitions/http.PaginationMeta'
+      users:
+        items:
+          $ref: '#/definitions/http.UserResponse'
+        type: array
+    type: object
+  http.ConfirmSignatureRequest:
+    properties:
+      expected_version:
+        example: 1
+        minimum: 1
+        type: integer
+      object_key:
+        example: f0e1d2c3-b4a5-6789-0fed-cba987654321/signatures/sig.png
+        maxLength: 500
+        minLength: 1
+        type: string
+      sha256:
+        example: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+        type: string
+    required:
+    - object_key
+    - sha256
+    type: object
+  http.LLMContextResponse:
+    properties:
+      context_documents:
+        items:
+          type: string
+        type: array
+      credentials:
+        additionalProperties:
+          type: string
+        type: object
+      display_name:
+        example: Alice Smith
+        type: string
+      job_title:
+        example: Staff Engineer
+        type: string
+      locale:
+        example: en-US
+        type: string
+      preferred_model:
+        example: claude-opus-4-7
+        type: string
+      templates:
+        items:
+          type: string
+        type: array
+      timezone:
+        example: America/New_York
+        type: string
+      user_id:
+        example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        format: uuid
+        type: string
+      writing_tone:
+        allOf:
+        - $ref: '#/definitions/http.WritingTone'
+        example: technical
+    type: object
+  http.LLMPrefsResponse:
+    properties:
+      context_documents:
+        items:
+          type: string
+        type: array
+      preferred_model:
+        example: claude-opus-4-7
+        type: string
+      record_version:
+        example: 2
+        type: integer
+      templates:
+        items:
+          type: string
+        type: array
+      updated_at:
+        example: "2026-01-01T00:00:00Z"
+        format: date-time
+        type: string
+      writing_tone:
+        allOf:
+        - $ref: '#/definitions/http.WritingTone'
+        example: technical
+    type: object
+  http.NotifPrefItem:
+    properties:
+      channels:
+        example:
+        - '["email"'
+        - '"in_app"]'
+        items:
+          type: string
+        type: array
+      event_type:
+        example: document.approved
+        maxLength: 100
+        type: string
+      urgency_threshold:
+        allOf:
+        - $ref: '#/definitions/http.UrgencyThreshold'
+        example: normal
+    type: object
+  http.NotifPrefItemResponse:
+    properties:
+      channels:
+        example:
+        - '["email"'
+        - '"in_app"]'
+        items:
+          type: string
+        type: array
+      event_type:
+        example: document.approved
+        type: string
+      urgency_threshold:
+        allOf:
+        - $ref: '#/definitions/http.UrgencyThreshold'
+        example: normal
+    type: object
+  http.NotifPrefsListResponse:
+    properties:
+      preferences:
+        items:
+          $ref: '#/definitions/http.NotifPrefItemResponse'
+        type: array
+    type: object
+  http.PaginationMeta:
+    properties:
+      limit:
+        example: 20
+        type: integer
+      next_cursor:
+        example: eyJpZCI6ImFiYzEyMyJ9
+        type: string
+      total:
+        example: 42
+        type: integer
+    type: object
+  http.PatchIdentityRequest:
+    properties:
+      credentials:
+        additionalProperties:
+          type: string
+        example:
+          department: Engineering
+          employee_id: E-1042
+          org: BCBP
+        type: object
+      delete_credentials:
+        example:
+        - certifications
+        items:
+          type: string
+        maxItems: 100
+        type: array
+      display_name:
+        example: Alice Smith
+        maxLength: 200
+        type: string
+      email:
+        example: alice.smith@acmecorp.com
+        maxLength: 254
+        type: string
+      event_time:
+        description: |-
+          EventTime is the source webhook's CloudEvents timestamp used by the
+          LLD §8.8.16 recency guard. Intended for Event Consumer forwarding only;
+          direct callers should omit. Stale values (<= users.last_idp_sync_at)
+          silently no-op the patch and set X-IdP-Sync-Skipped: true on the response.
+        example: "2026-06-01T12:00:00Z"
+        format: date-time
+        type: string
+      job_title:
+        example: Staff Engineer
+        maxLength: 200
+        type: string
+      status:
+        example: disabled
+        maxLength: 20
+        type: string
+      username:
+        example: alice_smith
+        maxLength: 64
+        minLength: 3
+        type: string
+    type: object
+  http.PatchUserRequest:
+    properties:
+      credentials:
+        additionalProperties:
+          type: string
+        example:
+          certifications: AWS-SAA
+        type: object
+      delete_credentials:
+        example:
+        - certifications
+        items:
+          type: string
+        maxItems: 100
+        type: array
+      display_name:
+        example: Alice Smith
+        maxLength: 200
+        type: string
+      display_name_overridden:
+        example: true
+        type: boolean
+      expected_version:
+        example: 2
+        minimum: 1
+        type: integer
+      job_title:
+        example: Staff Engineer
+        maxLength: 200
+        type: string
+      job_title_overridden:
+        example: false
+        type: boolean
+      locale:
+        example: en-US
+        maxLength: 20
+        minLength: 2
+        type: string
+      phone:
+        example: "+12125551234"
+        type: string
+      timezone:
+        example: America/New_York
+        maxLength: 64
+        minLength: 1
+        type: string
+    type: object
+  http.PresignRequest:
+    properties:
+      byte_size:
+        example: 48213
+        maximum: 1048576
+        minimum: 1
+        type: integer
+      content_type:
+        allOf:
+        - $ref: '#/definitions/http.SignatureContentType'
+        example: image/png
+    required:
+    - byte_size
+    - content_type
+    type: object
+  http.PresignResponse:
+    properties:
+      expires_in:
+        example: 300
+        type: integer
+      object_key:
+        example: f0e1d2c3-b4a5-6789-0fed-cba987654321/signatures/sig.png
+        type: string
+      upload_url:
+        example: https://s3.amazonaws.com/bucket/key?X-Amz-Signature=...
+        type: string
+    type: object
+  http.ProblemDetails:
+    properties:
+      detail:
+        description: |-
+          Detail is a sentence the service wrote about this occurrence. It never
+          carries exception text, SQL, secrets or tenant information.
+        type: string
+      errorCode:
+        description: ErrorCode is the stable, upper snake case, machine-readable code.
+        type: string
+      instance:
+        description: Instance is the request path (never the query string, which may
+          carry tokens).
+        type: string
+      status:
+        description: Status is the HTTP status code; it always equals the response
+          status.
+        type: integer
+      tenantId:
+        description: TenantID is set only for a request with a verified tenant context.
+        type: string
+      timestamp:
+        description: Timestamp is when the problem was created, formatted with TimestampLayout.
+        type: string
+      title:
+        description: Title is the short, fixed summary of the type. It never varies
+          per occurrence.
+        type: string
+      traceId:
+        description: TraceID correlates the response with the server's logs and traces.
+        type: string
+      type:
+        description: |-
+          Type is the absolute, stable type URI ({base}/{domain}/{error}), or
+          "about:blank" for a status without a registered type (RFC 9457 §4.2.1).
+        type: string
+      validationErrors:
+        description: ValidationErrors lists the invalid fields of a validation-failed
+          problem.
+        items:
+          $ref: '#/definitions/github_com_BCBP-SOLUTIONS-FZC-LLC_platform-gincommon_v2_internal_problem.FieldError'
+        type: array
+    type: object
+  http.ProvisionRequest:
+    properties:
+      credentials:
+        additionalProperties:
+          type: string
+        example:
+          department: Engineering
+          employee_id: E-1042
+          org: BCBP
+        type: object
+      display_name:
+        example: Alice Smith
+        maxLength: 200
+        type: string
+      email:
+        example: alice.smith@acmecorp.com
+        maxLength: 254
+        type: string
+      event_time:
+        description: |-
+          EventTime is the Keycloak webhook envelope timestamp forwarded by iam-event-consumer.
+          When provided, it seeds users.last_idp_sync_at so the recency guard in PatchIdentity
+          is effective from the very first provision (EC-4 fix). Optional — direct callers
+          (manual tests, ad-hoc integrations) should omit it.
+        example: "2026-06-01T12:00:00Z"
+        format: date-time
+        type: string
+      job_title:
+        example: Senior Engineer
+        maxLength: 200
+        type: string
+      saml_attributes:
+        additionalProperties:
+          type: string
+        description: 'accepted and ignored (LLD §5.4 #15)'
+        type: object
+      source:
+        example: local
+        type: string
+      tenant_id:
+        example: f0e1d2c3-b4a5-6789-0fed-cba987654321
+        format: uuid
+        type: string
+      user_id:
+        example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        format: uuid
+        type: string
+      username:
+        example: alice_smith
+        maxLength: 64
+        minLength: 3
+        type: string
+    required:
+    - email
+    - tenant_id
+    - user_id
+    type: object
+  http.PutAvailabilityRequest:
+    properties:
+      delegate_user_id:
+        example: b2c3d4e5-f6a7-8901-bcde-f12345678901
+        format: uuid
+        type: string
+      expected_version:
+        example: 1
+        minimum: 1
+        type: integer
+      note:
+        example: Annual leave — contact delegate
+        maxLength: 500
+        type: string
+      ooo_from:
+        example: "2026-07-01T00:00:00Z"
+        format: date-time
+        type: string
+      ooo_until:
+        example: "2026-07-14T23:59:59Z"
+        format: date-time
+        type: string
+      status:
+        allOf:
+        - $ref: '#/definitions/http.AvailabilityStatus'
+        example: ooo
+    required:
+    - status
+    type: object
+  http.PutLLMPrefsRequest:
+    properties:
+      context_documents:
+        items:
+          type: string
+        maxItems: 10
+        type: array
+      expected_version:
+        example: 1
+        minimum: 1
+        type: integer
+      preferred_model:
+        example: claude-opus-4-7
+        maxLength: 128
+        minLength: 1
+        type: string
+      templates:
+        items:
+          type: string
+        maxItems: 20
+        type: array
+      writing_tone:
+        allOf:
+        - $ref: '#/definitions/http.WritingTone'
+        example: technical
+    type: object
+  http.PutNotifPrefsRequest:
+    properties:
+      preferences:
+        description: |-
+          min=0 intentional: an empty array clears all preferences (user opts into
+          system defaults for every event type). min=1 would prevent that.
+        items:
+          $ref: '#/definitions/http.NotifPrefItem'
+        maxItems: 50
+        minItems: 0
+        type: array
+    required:
+    - preferences
+    type: object
+  http.SignatureConfirmResponse:
+    properties:
+      signature_image_hash:
+        example: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+        type: string
+      signature_key:
+        example: f0e1d2c3-b4a5-6789-0fed-cba987654321/signatures/sig.png
+        type: string
+      updated_at:
+        example: "2026-06-01T12:00:00Z"
+        format: date-time
+        type: string
+      user_id:
+        example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        format: uuid
+        type: string
+    type: object
+  http.SignatureContentType:
+    enum:
+    - image/png
+    - image/jpeg
+    type: string
+    x-enum-varnames:
+    - SignatureContentTypePNG
+    - SignatureContentTypeJPEG
+  http.SignatureURLResponse:
+    properties:
+      signature_image_hash:
+        example: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+        type: string
+      signature_url:
+        example: https://s3.amazonaws.com/bucket/key?X-Amz-Signature=...
+        type: string
+      updated_at:
+        example: "2026-06-01T12:00:00Z"
+        format: date-time
+        type: string
+      user_id:
+        example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        format: uuid
+        type: string
+    type: object
+  http.UrgencyThreshold:
+    enum:
+    - any
+    - normal
+    - high
+    - critical
+    type: string
+    x-enum-varnames:
+    - UrgencyThresholdAny
+    - UrgencyThresholdNormal
+    - UrgencyThresholdHigh
+    - UrgencyThresholdCritical
+  http.UserResponse:
+    properties:
+      availability:
+        $ref: '#/definitions/http.AvailabilityResp'
+      created_at:
+        example: "2026-01-01T00:00:00Z"
+        format: date-time
+        type: string
+      credentials:
+        additionalProperties:
+          type: string
+        example:
+          department: Engineering
+          employee_id: E-1042
+          org: BCBP
+        type: object
+      display_name:
+        example: Alice Smith
+        type: string
+      display_name_overridden:
+        example: true
+        type: boolean
+      email:
+        example: alice.smith@acmecorp.com
+        type: string
+      id:
+        example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        format: uuid
+        type: string
+      job_title:
+        example: Senior Engineer
+        type: string
+      job_title_overridden:
+        example: false
+        type: boolean
+      locale:
+        example: en-US
+        type: string
+      phone:
+        example: "+12125551234"
+        type: string
+      provisional:
+        example: false
+        type: boolean
+      record_version:
+        example: 3
+        type: integer
+      source:
+        example: local
+        type: string
+      status:
+        example: active
+        type: string
+      tenant_id:
+        example: f0e1d2c3-b4a5-6789-0fed-cba987654321
+        format: uuid
+        type: string
+      timezone:
+        example: America/New_York
+        type: string
+      updated_at:
+        example: "2026-06-01T12:00:00Z"
+        format: date-time
+        type: string
+      username:
+        example: Alice Smith
+        type: string
+    type: object
+  http.WritingTone:
+    enum:
+    - formal
+    - technical
+    - concise
+    - persuasive
+    - neutral
+    type: string
+    x-enum-varnames:
+    - WritingToneFormal
+    - WritingToneTechnical
+    - WritingToneConcise
+    - WritingTonePersuasive
+    - WritingToneNeutral
+host: localhost:8080
+info:
+  contact:
+    email: sharmila.dayalan@bcbpsolutions.com
+    name: BCBP Solutions
+  description: |-
+    User profile microservice — owns display identity, availability, LLM preferences, notification preferences, and approver signatures.
+
+    **Tenant isolation:** All resource access is strictly scoped by x-tenant-id. Cross-tenant access is never permitted.
+  license:
+    name: Proprietary
+  title: IAM User Profile API
+  version: "1.0"
+paths:
+  /internal/users:
+    post:
+      consumes:
+      - application/json
+      description: 'Creates a user profile from a Keycloak user-created event, or
+        enriches the provisional stub left by a first login. Idempotent: a user that
+        is already fully provisioned is returned unchanged (200, no event). 409 user_already_exists
+        when the email/username belongs to another user in the tenant; 409 duplicate_request
+        while another request with the same Idempotency-Key is in flight. tenant_id
+        must equal the x-tenant-id header (400 tenant_mismatch). email must be a valid
+        fully-lowercase RFC 5322 address (RFC 5321: max 254 chars total, local part
+        ≤ 64 chars; RFC 5322: no consecutive dots, no leading/trailing dot in local
+        part; TLD ≥ 2 chars; ASCII domain only — IDN must be punycode-encoded). display_name
+        must be 1-200 chars with no control characters (optional). Supply Idempotency-Key
+        to make the call safe for event-retry: the first successful 200 response is
+        cached for 24h and returned verbatim on subsequent calls with the same key
+        and body (a different body is 422 idempotency_key_reuse). Response status
+        is 200 OK (LLD §8.8.15 sequence).'
+      parameters:
+      - description: Required. Client-generated idempotency key (UUID recommended,
+          max 128 chars). Blank or missing → 400 invalid_idempotency_key. Successful
+          responses are cached for 24h; retries with the same key return the original
+          200 without re-executing.
+        format: uuid
+        in: header
+        name: Idempotency-Key
+        required: true
+        type: string
+      - description: User provisioning payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/http.ProvisionRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/http.UserResponse'
+        "400":
+          description: invalid_idempotency_key (blank/missing header or > 128 chars),
+            invalid_request, tenant_mismatch, bad_request
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "403":
+          description: caller lacks the iam-system role
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "409":
+          description: user_already_exists, duplicate_request (concurrent same-key),
+            version_conflict
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "415":
+          description: Content-Type must be application/json
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "422":
+          description: input validation failed (email format or display_name), or
+            idempotency_key_reuse
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+      security:
+      - UserID: []
+      - TenantID: []
+      - TenantRoles: []
+      summary: Provision user (internal)
+      tags:
+      - Internal
+  /internal/users/{id}:
+    delete:
+      description: Soft-deletes the user profile and replaces PII fields with anonymous
+        placeholders (GDPR right to erasure). Triggered by a Keycloak user-deleted
+        event. Returns 200 OK per LLD §8.8.17 (idempotent — repeated deletes for the
+        same or a non-existent user id also return 200; 404 is never returned).
+      parameters:
+      - description: User UUID
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK — deleted, or already deleted/non-existent (idempotent)
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "403":
+          description: caller lacks the iam-system role
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+      security:
+      - UserID: []
+      - TenantID: []
+      - TenantRoles: []
+      summary: Delete user (internal)
+      tags:
+      - Internal
+    patch:
+      consumes:
+      - application/json
+      description: 'Updates identity fields (email, username, display name, job title,
+        attributes) derived from a Keycloak user-updated event. If provided, email
+        must be a valid fully-lowercase RFC 5322 address (RFC 5321: local part ≤ 64
+        chars, max 254 total; RFC 5322: no consecutive dots, no leading/trailing dot
+        in local part; TLD ≥ 2 chars; ASCII domain only) and display_name must be
+        1-200 chars with no control characters. `event_time` is intended for the Event
+        Consumer only — it is the Keycloak webhook envelope timestamp used by the
+        recency guard (LLD §8.8.16); direct callers should omit it. When `event_time`
+        is supplied but is <= `users.last_idp_sync_at`, the patch is silently accepted
+        as a no-op (HTTP 200 with the unchanged record) and the response carries `X-IdP-Sync-Skipped:
+        true`.'
+      parameters:
+      - description: User UUID
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Identity fields to update
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/http.PatchIdentityRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/http.UserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "403":
+          description: caller lacks the iam-system role
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "422":
+          description: input validation failed (email or display_name)
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+      security:
+      - UserID: []
+      - TenantID: []
+      - TenantRoles: []
+      summary: Patch user identity (internal)
+      tags:
+      - Internal
+  /internal/users/{id}/availability:
+    put:
+      consumes:
+      - application/json
+      description: Identical behaviour to PUT /users/{id}/availability but callable
+        by iam-system callers without the self-or-admin restriction (gated at the
+        network layer by RequireSystemRole middleware).
+      parameters:
+      - description: User UUID
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Availability payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/http.PutAvailabilityRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/http.AvailabilityResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "403":
+          description: caller lacks the iam-system role
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "422":
+          description: input validation failed (ooo_window)
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+      security:
+      - UserID: []
+      - TenantID: []
+      - TenantRoles: []
+      summary: Set user availability (internal)
+      tags:
+      - Internal
+  /internal/users/{id}/availability/delegate:
+    delete:
+      description: Clears only the delegate_user_id field on the user's availability
+        record. Status, OOO window, and note are preserved. Idempotent — safe to retry.
+      parameters:
+      - description: User UUID
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Clear only if the pointer still names this delegate (the ended
+          delegation's); omit to clear unconditionally
+        format: uuid
+        in: query
+        name: delegate_user_id
+        type: string
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "403":
+          description: caller lacks the iam-system role
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+      security:
+      - UserID: []
+      - TenantID: []
+      summary: Clear delegate pointer (internal)
+      tags:
+      - Internal
+  /internal/users/{id}/llm-context:
+    get:
+      description: Returns a denormalised snapshot combining identity, availability,
+        and LLM preference fields. Consumed by the RAG & Generation Service to build
+        personalised system prompts.
+      parameters:
+      - description: User UUID
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/http.LLMContextResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "403":
+          description: caller lacks the iam-system role
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+      security:
+      - UserID: []
+      - TenantID: []
+      - TenantRoles: []
+      summary: Get LLM context (internal)
+      tags:
+      - Internal
+  /internal/users/{id}/signature:
+    get:
+      description: Returns a short-lived presigned GET URL for the user's stored signature
+        image. Called by the Approver workflow service.
+      parameters:
+      - description: User UUID
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/http.SignatureURLResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "403":
+          description: caller lacks the iam-system role
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+      security:
+      - UserID: []
+      - TenantID: []
+      - TenantRoles: []
+      summary: Get signature download URL (internal)
+      tags:
+      - Internal
+  /users/{id}:
+    get:
+      description: Returns the full user profile for any member of the same tenant
+        (§5.3 — required for dashboards and assignee pickers). If the caller requests
+        their own profile and it does not exist, it is provisioned lazily.
+      parameters:
+      - description: User UUID
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/http.UserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+      security:
+      - UserID: []
+      - TenantID: []
+      summary: Get user profile
+      tags:
+      - Users
+    patch:
+      consumes:
+      - application/json
+      description: 'Applies partial updates to a user profile. Users may only update
+        their own profile unless they hold the admin role. Supports optimistic locking
+        via expected_version. Validation: display_name (1-200 chars, no control chars),
+        phone (E.164 or empty), timezone (IANA), locale (BCP-47), credentials values
+        (alphanumeric + - / . ( ) space).'
+      parameters:
+      - description: User UUID
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Fields to update
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/http.PatchUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/http.UserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "415":
+          description: Content-Type must be application/json
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "422":
+          description: input validation failed
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+      security:
+      - UserID: []
+      - TenantID: []
+      summary: Update user profile
+      tags:
+      - Users
+  /users/{id}/availability:
+    get:
+      description: Returns the user's current availability status including any active
+        OOO window and optional delegate.
+      parameters:
+      - description: User UUID
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/http.AvailabilityResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+      security:
+      - UserID: []
+      - TenantID: []
+      summary: Get user availability
+      tags:
+      - Availability
+    put:
+      consumes:
+      - application/json
+      description: Replaces the user's availability record. Users may only update
+        their own status unless they hold the admin role. Supports optimistic locking
+        via expected_version. When status is "ooo", ooo_from and ooo_until are required;
+        ooo_until must be after ooo_from and the window must not exceed 180 days.
+      parameters:
+      - description: User UUID
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Availability payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/http.PutAvailabilityRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/http.AvailabilityResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "415":
+          description: Content-Type must be application/json
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "422":
+          description: input validation failed (ooo_window)
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+      security:
+      - UserID: []
+      - TenantID: []
+      summary: Set user availability
+      tags:
+      - Availability
+  /users/{id}/llm-preferences:
+    get:
+      description: Returns the user's LLM model selection, writing tone, prompt templates,
+        and context documents.
+      parameters:
+      - description: User UUID
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/http.LLMPrefsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "403":
+          description: non-admin caller attempting to read another user's preferences
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+      security:
+      - UserID: []
+      - TenantID: []
+      summary: Get LLM preferences
+      tags:
+      - LLM Preferences
+    put:
+      consumes:
+      - application/json
+      description: 'Replaces the user''s LLM preferences. Users may only update their
+        own preferences unless they hold the admin role. Supports optimistic locking
+        via expected_version. writing_tone must be one of: formal, technical, concise,
+        persuasive, neutral.'
+      parameters:
+      - description: User UUID
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: LLM preferences payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/http.PutLLMPrefsRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/http.LLMPrefsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "422":
+          description: input validation failed (writing_tone)
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+      security:
+      - UserID: []
+      - TenantID: []
+      summary: Update LLM preferences
+      tags:
+      - LLM Preferences
+  /users/{id}/notification-preferences:
+    get:
+      description: Returns the user's per-event-type notification channel and urgency
+        threshold settings.
+      parameters:
+      - description: User UUID
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/http.NotifPrefsListResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "403":
+          description: non-admin caller attempting to read another user's preferences
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+      security:
+      - UserID: []
+      - TenantID: []
+      summary: Get notification preferences
+      tags:
+      - Notification Preferences
+    put:
+      consumes:
+      - application/json
+      description: 'Replaces all notification preferences for the user. Users may
+        only update their own preferences unless they hold the admin role. An empty
+        preferences array (preferences: []) clears all custom preferences and reverts
+        to system defaults for every event type.'
+      parameters:
+      - description: User UUID
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Notification preferences payload. Pass an empty array to clear
+          all preferences.
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/http.PutNotifPrefsRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/http.NotifPrefsListResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "415":
+          description: Content-Type must be application/json
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "422":
+          description: validation_failed (duplicate event_type, invalid channel or
+            urgency threshold)
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+      security:
+      - UserID: []
+      - TenantID: []
+      summary: Replace notification preferences
+      tags:
+      - Notification Preferences
+  /users/{id}/signature:
+    delete:
+      description: Marks the signature for durable erasure (signature_erasure_pending=true);
+        does not delete the S3 object synchronously. The signature-erasure reconciler
+        CronJob deletes all object versions in both the primary and CRR replica buckets
+        and clears the pending flag on confirmed erasure (LLD §8.7 K2). No-op if the
+        user has no signature.
+      parameters:
+      - description: User UUID
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+      security:
+      - UserID: []
+      - TenantID: []
+      summary: Delete user signature
+      tags:
+      - Signature
+    post:
+      consumes:
+      - application/json
+      description: 'Returns a short-lived presigned S3 PUT URL. Accepted content types:
+        image/png, image/jpeg. The presigned URL is signed for the exact Content-Type
+        supplied — the PUT request to S3 must include that same Content-Type header
+        or S3 will reject the upload with 403 SignatureDoesNotMatch (MIME spoofing
+        is prevented at the S3 layer). Maximum upload size: 1 MB (1,048,576 bytes)
+        — ConfirmSignature enforces this server-side (413 if exceeded). Rate-limited
+        to 10 requests per minute per user, enforced via a shared Valkey counter so
+        the limit is consistent across all replicas. X-RateLimit-Limit, X-RateLimit-Remaining,
+        and X-RateLimit-Reset headers are set on every response. **Strict JSON binding:**
+        unknown fields in the request body return 400 BAD_REQUEST.'
+      parameters:
+      - description: User UUID
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Content type for the upload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/http.PresignRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-RateLimit-Limit:
+              description: Maximum requests per burst window
+              type: integer
+            X-RateLimit-Remaining:
+              description: Remaining requests in current window
+              type: integer
+            X-RateLimit-Reset:
+              description: Unix timestamp when the limit fully resets
+              type: integer
+          schema:
+            $ref: '#/definitions/http.PresignResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "404":
+          description: user not found
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "409":
+          description: signature_erasure_pending — the previous signature is still
+            being erased
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "415":
+          description: Content-Type must be application/json
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "429":
+          description: Too Many Requests
+          headers:
+            X-RateLimit-Limit:
+              description: Maximum requests per burst window
+              type: integer
+            X-RateLimit-Remaining:
+              description: Remaining requests (0 when rate-limited)
+              type: integer
+            X-RateLimit-Reset:
+              description: Unix timestamp when the limit resets
+              type: integer
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+      security:
+      - UserID: []
+      - TenantID: []
+      summary: Request signature upload URL
+      tags:
+      - Signature
+    put:
+      consumes:
+      - application/json
+      description: Verifies the SHA-256 hash of the uploaded object against the server-side
+        hash, then records the signature key on the user profile. Returns 201 on first
+        upload, 200 on replace. signature_image_hash must be 64 lowercase hex chars
+        (SHA-256). object_key must be scoped under the caller's tenant prefix. Content-Type
+        enforcement is handled by S3 at upload time (see PresignSignature); this endpoint
+        re-reads the object to compute the hash, so any content that reached S3 has
+        already passed the MIME check. expected_version is an optional optimistic-concurrency
+        token — if supplied and it does not match the current record_version the request
+        is rejected with 409. **Strict JSON binding:** unknown fields in the request
+        body return 400 BAD_REQUEST.
+      parameters:
+      - description: User UUID
+        format: uuid
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Object key, expected hash, and optional expected_version for
+          optimistic concurrency
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/http.ConfirmSignatureRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: signature replaced
+          schema:
+            $ref: '#/definitions/http.SignatureConfirmResponse'
+        "201":
+          description: signature created (first upload)
+          schema:
+            $ref: '#/definitions/http.SignatureConfirmResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "404":
+          description: user not found
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "409":
+          description: version_conflict, or signature_erasure_pending — the previous
+            signature is still being erased
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "413":
+          description: uploaded object exceeds 1 MB limit
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "415":
+          description: Content-Type must be application/json
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "422":
+          description: input validation failed (hash format, or object_key is not
+            the key issued by presign for this user)
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+      security:
+      - UserID: []
+      - TenantID: []
+      summary: Confirm signature upload
+      tags:
+      - Signature
+  /users:batch:
+    post:
+      consumes:
+      - application/json
+      description: 'Returns profiles for up to 200 user IDs for any member of the
+        same tenant (§5.3 — required for dashboards and assignee pickers). IDs with
+        no matching user are listed in the "missing" array. The response includes
+        a cursor-based pagination envelope (limit = IDs requested, total = profiles
+        found, next_cursor omitted for ID-based batch). Rate limiting: 20 req/s sustained
+        per user per replica (burst: 5). X-RateLimit-Limit reports the per-replica
+        steady-state rate; effective global limit scales with replica count (see HPA
+        config). X-RateLimit-Limit, X-RateLimit-Remaining, and X-RateLimit-Reset headers
+        are set on every response.'
+      parameters:
+      - description: Array of user UUIDs (max 200)
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/http.BatchRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-RateLimit-Limit:
+              description: Sustained requests per second per replica (not global)
+              type: integer
+            X-RateLimit-Remaining:
+              description: Remaining tokens in the current window
+              type: integer
+            X-RateLimit-Reset:
+              description: Unix timestamp when the bucket is fully replenished
+              type: integer
+          schema:
+            $ref: '#/definitions/http.BatchUsersResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "415":
+          description: Content-Type must be application/json
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "429":
+          description: rate limited
+          headers:
+            X-RateLimit-Limit:
+              description: Sustained requests per second per replica
+              type: integer
+            X-RateLimit-Remaining:
+              description: Remaining tokens (0 when rate-limited)
+              type: integer
+            X-RateLimit-Reset:
+              description: Unix timestamp when the limit resets
+              type: integer
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/http.ProblemDetails'
+      security:
+      - UserID: []
+      - TenantID: []
+      summary: Batch get user profiles
+      tags:
+      - Users
+securityDefinitions:
+  TenantID:
+    description: Tenant UUID injected by the API gateway.
+    in: header
+    name: x-tenant-id
+    type: apiKey
+  TenantRoles:
+    description: Comma-separated role list injected by the API gateway. Internal endpoints
+      require the "iam-system" role.
+    in: header
+    name: x-tenant-roles
+    type: apiKey
+    x-ratelimit: '{"default":"100 req/min","burst":5,"scope":"per-user (keyed by x-user-id;
+      each caller gets an independent token bucket)","headers":{"X-RateLimit-Limit":"Maximum
+      requests per burst window","X-RateLimit-Remaining":"Remaining requests in the
+      current window","X-RateLimit-Reset":"Unix timestamp when the limit fully resets"},"notes":"POST
+      /users/batch enforces 20 req/s with burst=5 per caller (x-user-id). Idle per-user
+      buckets are evicted after 1 hour. Rate-limited requests return HTTP 429."}'
+  UserID:
+    description: Authenticated user UUID injected by the API gateway.
+    in: header
+    name: x-user-id
+    type: apiKey
+swagger: "2.0"
+x-rateLimit:
+  default: 100 req/min
+  burst: 5
+  scope: per-process (shared across connections on the same replica)
+  headers:
+    X-RateLimit-Limit: Maximum requests per burst window
+    X-RateLimit-Remaining: Remaining requests in the current window
+    X-RateLimit-Reset: Unix timestamp when the limit fully resets
+  notes: POST /users/batch enforces an additional 20 req/s token-bucket limit per process. Rate-limited requests return HTTP 429.
+x-events:
+  topic: iam.user.events
+  transport: AWS SNS → SQS (fan-out via subscription filter on event_type MessageAttribute)
+  wireFormat: 18-byte AWS Glue header + JSON payload (see api/asyncapi.yaml for full schema)
+  filterAttribute: event_type
+  seeAlso: api/asyncapi.yaml
+  envelope:
+    id: uuid — event_id (RFC 4122 UUID v7, time-ordered, 128-bit, monotonically ordered at publish time; use as idempotency key and primary sort key)
+    type: "string (event type — see events[].type)"
+    subject: uuid (user_id this event is about)
+    source: "string (always 'iam-user-profile')"
+    tenant_id: uuid
+    time: "date-time (emitted_at — UTC time envelope was created; use for ordering and replay windowing; CloudEvents 'time' field)"
+    actor: "string (user_id of the authenticated caller, or 'iam-system' for background workers)"
+    trace_id: string (OTel W3C trace ID — links event to originating request across all services; omitted for background workers)
+    correlation_id: string (OTel span ID of the producing handler — use with trace_id to pin the exact span; omitted for background workers)
+    specversion: "string (always '1' — message format semantic version; CloudEvents 'specversion' field)"
+    dataschema: "uuid (Glue schema version UUID — omitted when NoopCodec is active; CloudEvents 'dataschema' field)"
+    ip_address: string (client IP — available via platform-events WithIPAddress; NOT set by this service — GDPR)
+    user_agent: string (HTTP User-Agent — available via platform-events WithUserAgent; NOT set by this service — GDPR)
+  replayGuidance:
+    delivery: at-least-once — SNS → SQS guarantees at-least-once delivery; duplicate messages will occur
+    idempotency: Consumers MUST use envelope.id (RFC 4122 UUID v7) as an idempotency key — record processed IDs before committing side-effects and discard any message whose id has already been processed
+    ordering: "No global ordering guarantee across subjects. Within a subject (user_id): use envelope.id (RFC 4122 UUID v7, time-ordered, 128-bit — monotonically ordered by creation time) as the primary sort key; use envelope.time as a human-readable secondary tiebreaker. If a stored id > incoming id for the same subject, the incoming message is stale — discard it."
+    replay:
+      1_dlq_redrive: SQS DLQ redrive (broker-level, recent failures only) — move failed messages back via SQS StartMessageMoveTask API; covers delivery/processing failures within the SQS retention window (default 4 days)
+      2_outbox_replay: Outbox-based replay (within 7-day retention window) — contact the IAM team with scope (id, subject, event_type + time range); they re-enqueue from the outbox with new ids so consumer idempotency keys are not bypassed
+      3_rest_backfill: "State-based backfill (recommended for new consumers or full recovery) — bootstrap from GET /internal/users?tenant_id={id} or GET /users/{id} snapshots, then subscribe to future events; no synthetic events are published during backfill"
+      4_no_event_store: No event store / time-travel — arbitrary historical replay is not supported; consumers requiring durable event history should archive received events in their own store (e.g. S3 + Athena)
+    seeAlso: api/asyncapi.yaml — full ordering, idempotency, DLQ, and replay guidance in the iam.user.events channel description
+  events:
+    - type: UserProvisioned
+      trigger: POST /internal/users — first-time user row creation
+      payload:
+        user_id: uuid
+        email: string
+        username: string (omitempty)
+        source: "string (keycloak | manual)"
+        created_at: date-time
+      consumers:
+        - queue: user-audit-q
+          dlq: user-audit-q-dlq
+          service: Audit Log Service
+          filter: all event types
+    - type: UserUpdated
+      trigger: "PATCH /users/{id} or PATCH /internal/users/{id} — any profile field changed"
+      payload:
+        user_id: uuid
+        changed_fields: "array — values: display_name, job_title, timezone, locale, phone, credentials, email, username, signature_key, signature_image_hash, preferred_model, writing_tone, templates, context_documents, notification_preferences"
+        email: string (omitempty — present only when changed_fields contains email)
+      consumers:
+        - queue: user-audit-q
+          dlq: user-audit-q-dlq
+          service: Audit Log Service
+          filter: all event types
+        - queue: user-authz-q
+          dlq: user-authz-q-dlq
+          service: AuthZ Enrichment
+          filter: "event_type IN [UserUpdated, UserAvailabilityChanged, UserDeleted]"
+    - type: UserStatusChanged
+      trigger: "PATCH /internal/users/{id} with a status change (active <-> disabled; alongside UserUpdated) or DELETE /internal/users/{id} (-> deleted; alongside UserDeleted, also per user of a TenantOffboarded scrub)"
+      payload:
+        user_id: uuid
+        previous_status: "active | disabled | deleted"
+        new_status: "active | disabled | deleted"
+      consumers:
+        - queue: user-audit-q
+          dlq: user-audit-q-dlq
+          service: Audit Log Service
+          filter: all event types
+        - queue: delegation-cascade-q
+          dlq: delegation-cascade-q-dlq
+          service: Delegation Service
+          filter: "event_type IN [UserStatusChanged] — acts on new_status=disabled"
+    - type: UserAvailabilityChanged
+      trigger: "PUT /users/{id}/availability — availability status or OOO window changed"
+      payload:
+        user_id: uuid
+        status: "available | busy | ooo"
+        ooo_from: date-time (omitempty)
+        ooo_until: date-time (omitempty)
+        delegate_user_id: uuid (omitempty)
+      consumers:
+        - queue: user-audit-q
+          dlq: user-audit-q-dlq
+          service: Audit Log Service
+          filter: all event types
+        - queue: user-authz-q
+          dlq: user-authz-q-dlq
+          service: AuthZ Enrichment
+          filter: "event_type IN [UserUpdated, UserAvailabilityChanged, UserDeleted]"
+        - queue: user-wf-q
+          dlq: user-wf-q-dlq
+          service: Workflow Service
+          filter: "event_type IN [UserAvailabilityChanged, UserDeleted]"
+    - type: UserDeleted
+      trigger: "DELETE /internal/users/{id} — user soft-deleted"
+      payload:
+        user_id: uuid
+        deleted_at: date-time
+      consumers:
+        - queue: user-audit-q
+          dlq: user-audit-q-dlq
+          service: Audit Log Service
+          filter: all event types
+        - queue: user-authz-q
+          dlq: user-authz-q-dlq
+          service: AuthZ Enrichment
+          filter: "event_type IN [UserUpdated, UserAvailabilityChanged, UserDeleted]"
+        - queue: user-wf-q
+          dlq: user-wf-q-dlq
+          service: Workflow Service
+          filter: "event_type IN [UserAvailabilityChanged, UserDeleted]"

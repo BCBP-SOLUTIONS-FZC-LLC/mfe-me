@@ -1,0 +1,32 @@
+// The standalone page when /config/runtime.json is missing (a static host without it, or a bad
+// deploy): standalone.ts logs a warning and the page still starts. See standalone-config.test.ts
+// for why this runs in beforeAll.
+import { isInitialized } from '@bcbp-solutions-fzc-llc/frontend-sdk/core'
+import { tryGetConfig } from '@bcbp-solutions-fzc-llc/frontend-sdk/config'
+import { beforeAll, describe, expect, it, rs } from '@rstest/core'
+import { startStandalone } from '../../../src/infrastructure/configuration/standalone'
+
+const seen: { settled?: boolean; initialized?: boolean; config?: unknown; warnings: string[] } = { warnings: [] }
+
+beforeAll(async () => {
+  rs.stubGlobal('fetch', async () => new Response('not found', { status: 404 }))
+  const warn = rs.spyOn(console, 'warn').mockImplementation(() => {})
+  seen.settled = await startStandalone().then(() => true, () => false)
+  seen.warnings = warn.mock.calls.map((c) => c.map(String).join(' '))
+  seen.initialized = isInitialized()
+  seen.config = tryGetConfig()
+  rs.restoreAllMocks()
+  rs.unstubAllGlobals()
+})
+
+describe('standalone page without a runtime config', () => {
+  it('still starts: the identity is set, there is no config, and nothing throws', () => {
+    expect(seen.settled).toBe(true)
+    expect(seen.initialized).toBe(true)
+    expect(seen.config).toBeUndefined()
+  })
+
+  it('warns once that the runtime config is unavailable', () => {
+    expect(seen.warnings.filter((w) => w.includes('runtime config unavailable'))).toHaveLength(1)
+  })
+})

@@ -1,0 +1,15 @@
+{
+  "security.intro": "Your sign-in is managed in your account console. These links open it in a new tab.",
+  "security.signin.title": "Sign-in and multi-factor authentication",
+  "security.signin.body": "Add or remove authenticator apps, passkeys and recovery codes, and change your password.",
+  "security.signin.link": "Manage sign-in",
+  "security.devices.title": "Devices and sessions",
+  "security.devices.body": "See where you are signed in and sign out of devices you don't use.",
+  "security.devices.link": "Manage devices",
+  "security.newTab": "(opens in a new tab)",
+  "security.unavailable": "The account console isn't available from here.",
+  "security.rule.mfaRequired": "Multi-factor authentication can't be switched off.",
+  "security.rule.removing": "Removing a method needs your current method, a code sent to your email, and a 24-hour wait.",
+  "security.rule.upgrade": "After a trial is upgraded to a paid plan, everyone sets up their sign-in again.",
+  "security.rule.trial": "Trial workspaces share one account console, so you may see other trial settings there."
+}

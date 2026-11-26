@@ -1,0 +1,17 @@
+{
+  "identity.unknownUser": "Unknown user",
+  "identity.nameUnavailable": "Name unavailable",
+  "identity.department": "Department",
+  "identity.level.preparator": "Preparator",
+  "identity.level.reviewer": "Reviewer",
+  "identity.level.approver": "Approver",
+  "identity.availability.available": "Available",
+  "identity.availability.busy": "Busy",
+  "identity.availability.ooo": "Out of office",
+  "picker.filter": "Type to filter",
+  "picker.filterLabel": "Filter members by name",
+  "picker.empty": "Pick a colleague",
+  "picker.loadMore": "Load more",
+  "picker.failed": "We couldn't load the members.",
+  "picker.awayOption": "{name} (out of office)"
+}

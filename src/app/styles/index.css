@@ -35,8 +35,8 @@
 .text-status-error { color: var(--aura-error-ink); }
 .text-status-warning { color: var(--aura-warning-ink); }
 .text-status-success { color: var(--aura-success-ink); }
-/* A notice: the surface with a coloured edge, so the colour is never the only signal and the text keeps AA. */
-.notice { border: 1px solid var(--aura-border); border-inline-start-width: 4px; border-radius: 0.5rem; background: var(--aura-surface); color: var(--aura-text); padding: 0.75rem 1rem; }
+/* A notice: a card as in the product reference (no dark border, its soft shadow) with a coloured edge, so the colour is never the only signal and the text keeps AA. */
+.notice { border: 1px solid rgb(255 255 255 / 0.7); border-inline-start-width: 4px; border-radius: 18px; background: var(--aura-surface); color: var(--aura-text); padding: 0.75rem 1rem; box-shadow: 0 10px 30px rgba(30, 27, 75, 0.06), 0 2px 6px rgba(30, 27, 75, 0.04); }
 .notice-error { border-inline-start-color: var(--aura-error-ink); }
 .notice-warning { border-inline-start-color: var(--aura-warning-ink); }
 .notice-info { border-inline-start-color: var(--aura-secondary-ink); }

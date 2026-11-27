@@ -1,6 +1,6 @@
 // Shared look of the admin screens, from the dashboard's Aura tokens: a card, a data table inside it, and
 // the pill buttons. One place, so every screen matches.
-export const card = 'rounded-xl border border-aura-border bg-aura-surface shadow-dash'
+export const card = 'rounded-[18px] border border-white/70 bg-aura-surface shadow-dash'
 export const tableWrap = `${card} overflow-x-auto`
 export const table = 'w-full min-w-[48rem] border-collapse text-start text-sm'
 export const th = 'px-3 py-3 text-start text-xs font-semibold uppercase tracking-wide text-aura-muted'

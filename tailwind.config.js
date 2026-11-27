@@ -37,7 +37,8 @@ export default {
       boxShadow: {
         'login-card': '0 16px 48px rgba(0, 0, 0, 0.2), 0 4px 14px rgba(0, 0, 0, 0.08)',
         'login-btn': '0 4px 16px rgba(217, 38, 114, 0.38)',
-        dash: '0 1px 3px var(--aura-shadow)',
+        // The product reference's card shadow (preadmin logistics dashboard): soft, indigo-tinted, no border.
+        dash: '0 10px 30px rgba(30, 27, 75, 0.06), 0 2px 6px rgba(30, 27, 75, 0.04)',
       },
     },
   },

@@ -8,6 +8,10 @@ All notable changes to this remote are documented here. The format follows [Keep
 
 ## [Unreleased]
 
+### Changed (2026-11-27 — cards as in the product reference)
+
+- **Cards have no border and the reference's soft shadow:** `card` in `src/presentation/components/styles.ts` is `rounded-[18px] border border-white/70 bg-aura-surface shadow-dash` (the reference's faint white edge) (it was `rounded-xl` with a `border-aura-border` border), and `shadow-dash` in `tailwind.config.js` is `0 10px 30px rgba(30,27,75,.06), 0 2px 6px rgba(30,27,75,.04)`. The same change as mfe-admin's, so the two remotes' cards match. The notices (`.notice`, e.g. "We couldn't load your availability") are cards too: the reference's shadow, 18px corners and white edge in place of the grey border, and they keep their coloured edge.
+
 ### Added (2026-11-26)
 
 - Scaffold from `mfe-admin` (LLD §1.1 step 1): container `me` exposing `./App`, dev port 5007, the six routes (`/me`, `availability`, `delegations`, `ai`, `notifications`, `security`) as placeholders, standalone page, layer rules, image, CI.

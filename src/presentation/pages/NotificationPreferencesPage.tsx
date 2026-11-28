@@ -14,7 +14,7 @@ import LoadFailed from '../components/LoadFailed'
 import ProblemDetails from '../components/ProblemDetails'
 import ReadOnlyNotice from '../components/ReadOnlyNotice'
 import SavedNotice from '../components/SavedNotice'
-import { btnOutline, btnPrimary, card, input } from '../components/styles'
+import { btnOutline, btnPrimary, card, cardHeader, cardTitle, input } from '../components/styles'
 import { useMeAccess } from '../features/access/useMeAccess'
 import { useNotificationPreferences, useSaveNotificationPreferences } from '../features/notifications/useNotificationPreferences'
 import { useMeServices } from '../features/services'
@@ -140,8 +140,11 @@ function NotificationForm({ saved }: { saved: readonly NotificationPreference[] 
   )
   const table = (list: Row[], caption: string) => (
     <div className={`${card} overflow-x-auto`}>
+      <div className={cardHeader} aria-hidden="true">
+        <h3 className={cardTitle}>{caption}</h3>
+      </div>
       <table className="w-full min-w-[40rem] border-collapse text-start text-sm">
-        <caption className="px-3 py-3 text-start text-base font-semibold">{caption}</caption>
+        <caption className="sr-only">{caption}</caption>
         <thead>
           <tr>
             <th scope="col" className="px-3 py-2 text-start text-xs font-semibold uppercase text-aura-muted">{t('notifications.col.event')}</th>

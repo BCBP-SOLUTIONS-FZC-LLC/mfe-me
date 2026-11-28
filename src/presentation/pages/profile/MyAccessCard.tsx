@@ -7,7 +7,7 @@ import { useId } from 'react'
 import { DEPARTMENT_LEVELS, IMPLICIT_ROLE, TENANT_ROLES, TENANT_ROLE_KEYS, type DepartmentLevel } from '../../../domain/vocabulary'
 import { APP_ID } from '../../../shared/constants/app'
 import DepartmentLabel from '../../components/identity/DepartmentLabel'
-import { card } from '../../components/styles'
+import { card, cardHeader, cardTitle } from '../../components/styles'
 import { useDepartmentDirectory } from '../../features/identity/useDepartmentDirectory'
 
 export default function MyAccessCard() {
@@ -24,10 +24,13 @@ export default function MyAccessCard() {
     return level ? [{ id: d.id, level }] : []
   })
   return (
-    <section aria-labelledby={`${id}-title`} className={`${card} flex flex-col gap-3 p-5`}>
-      <h2 id={`${id}-title`} className="text-lg font-semibold">
+    <section aria-labelledby={`${id}-title`} className={`${card} overflow-hidden`}>
+      <div className={cardHeader}>
+        <h2 id={`${id}-title`} className={cardTitle}>
         {t('access.title')}
-      </h2>
+        </h2>
+      </div>
+      <div className="flex flex-col gap-3 p-5">
       <div className="flex flex-col gap-1">
         <h3 className="text-sm font-medium text-aura-muted">{t('access.roles')}</h3>
         <ul className="flex flex-wrap gap-2">
@@ -53,6 +56,7 @@ export default function MyAccessCard() {
         )}
       </div>
       <p className="text-xs text-aura-muted">{t('access.askAdmin')}</p>
+      </div>
     </section>
   )
 }

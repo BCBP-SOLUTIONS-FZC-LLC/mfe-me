@@ -15,7 +15,7 @@ import LoadFailed from '../components/LoadFailed'
 import ProblemDetails from '../components/ProblemDetails'
 import ReadOnlyNotice from '../components/ReadOnlyNotice'
 import SavedNotice from '../components/SavedNotice'
-import { btnPrimary, card, input } from '../components/styles'
+import { btnPrimary, card, cardHeader, cardTitle, input } from '../components/styles'
 import { useMeAccess } from '../features/access/useMeAccess'
 import { useAiPreferences, useSaveAiPreferences } from '../features/ai/useAiPreferences'
 import { useMeServices } from '../features/services'
@@ -112,7 +112,7 @@ function AiForm({ saved, onReload }: { saved: LlmPreferences | undefined; onRelo
 
   return (
     <form
-      className={`${card} flex flex-col gap-5 p-5`}
+      className={`${card} overflow-hidden`}
       noValidate
       aria-labelledby={`${id}-title`}
       onSubmit={(event) => {
@@ -120,9 +120,12 @@ function AiForm({ saved, onReload }: { saved: LlmPreferences | undefined; onRelo
         void submit()
       }}
     >
-      <h2 id={`${id}-title`} className="text-lg font-semibold">
-        {t('ai.title')}
-      </h2>
+      <div className={cardHeader}>
+        <h2 id={`${id}-title`} className={cardTitle}>
+          {t('ai.title')}
+        </h2>
+      </div>
+      <div className="flex flex-col gap-5 p-5">
       {unavailable && <p role="status" className="notice notice-info">{t('ai.modelsUnavailable')}</p>}
       <Field label={t('ai.model')} error={error?.field === 'model' ? error.text : undefined} hint={savedGone ? t('ai.modelGone') : undefined}>
         {(ids) => (
@@ -184,6 +187,7 @@ function AiForm({ saved, onReload }: { saved: LlmPreferences | undefined; onRelo
           onClose={() => setConflict(false)}
         />
       )}
+      </div>
     </form>
   )
 }

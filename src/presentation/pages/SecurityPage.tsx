@@ -5,7 +5,7 @@
 import { useT } from '@bcbp-solutions-fzc-llc/frontend-sdk/react'
 import type { AccountSection } from '../../application/ports/navigation'
 import { APP_ID } from '../../shared/constants/app'
-import { btnOutline, card } from '../components/styles'
+import { btnOutline, card, cardHeader, cardTitle } from '../components/styles'
 import { useMeServices } from '../features/services'
 
 const CARDS: readonly { section: AccountSection; title: string; body: string; link: string }[] = [
@@ -25,8 +25,11 @@ export default function SecurityPage() {
         {CARDS.map((c) => {
           const url = navigation.accountConsoleUrl(c.section)
           return (
-            <li key={c.section} className={`${card} flex flex-col gap-3 p-5`}>
-              <h2 className="text-lg font-semibold">{t(c.title)}</h2>
+            <li key={c.section} className={`${card} overflow-hidden`}>
+              <div className={cardHeader}>
+                <h2 className={cardTitle}>{t(c.title)}</h2>
+              </div>
+              <div className="flex flex-col gap-3 p-5">
               <p className="text-sm">{t(c.body)}</p>
               {url ? (
                 <a className={`${btnOutline} self-start`} href={url} target="_blank" rel="noopener noreferrer">
@@ -38,6 +41,7 @@ export default function SecurityPage() {
                   {t('security.unavailable')}
                 </p>
               )}
+              </div>
             </li>
           )
         })}

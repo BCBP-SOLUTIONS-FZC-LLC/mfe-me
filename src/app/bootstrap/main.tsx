@@ -3,7 +3,6 @@ import { createRoot } from 'react-dom/client'
 // Self-hosted fonts for the standalone page (CSP font-src 'self'): the same packages and family
 // names as web-shell, so the remote looks the same inside the shell, where the shell's document
 // provides them and the remote ships none.
-import '@fontsource-variable/geist'
 import '@fontsource-variable/inter'
 import { MFEErrorBoundary } from '@bcbp-solutions-fzc-llc/frontend-sdk/react'
 import App from '../App'

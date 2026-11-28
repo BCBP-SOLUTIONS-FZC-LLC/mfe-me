@@ -17,7 +17,7 @@ import Field from '../../components/Field'
 import UserChip from '../../components/identity/UserChip'
 import ProblemDetails from '../../components/ProblemDetails'
 import SavedNotice from '../../components/SavedNotice'
-import { btnPrimary, card, input } from '../../components/styles'
+import { btnPrimary, card, cardHeader, cardTitle, input } from '../../components/styles'
 import { useMeAccess } from '../../features/access/useMeAccess'
 import { useSaveAvailability } from '../../features/availability/useAvailability'
 import { useUserProfiles } from '../../features/identity/useUserProfiles'
@@ -88,10 +88,13 @@ export default function AvailabilityForm({ current, onReload }: { current: Avail
 
   const coverLink = span?.from && span.until ? { pathname: '../delegations', search: `?create=1&from=${encodeURIComponent(span.from)}&until=${encodeURIComponent(span.until)}` } : { pathname: '../delegations', search: '?create=1' }
   return (
-    <section aria-labelledby={`${id}-title`} className={`${card} flex flex-col gap-4 p-5`}>
-      <h2 id={`${id}-title`} className="text-lg font-semibold">
+    <section aria-labelledby={`${id}-title`} className={`${card} overflow-hidden`}>
+      <div className={cardHeader}>
+        <h2 id={`${id}-title`} className={cardTitle}>
         {t('availability.title')}
-      </h2>
+        </h2>
+      </div>
+      <div className="flex flex-col gap-4 p-5">
       {current.delegateUserId && (
         <p role="status" className="flex flex-wrap items-center gap-2 rounded-lg border border-aura-border p-3 text-sm">
           <UserChip profile={covering} />
@@ -156,6 +159,7 @@ export default function AvailabilityForm({ current, onReload }: { current: Avail
           onClose={() => setConflict(false)}
         />
       )}
+      </div>
     </section>
   )
 }

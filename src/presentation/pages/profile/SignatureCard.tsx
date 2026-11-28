@@ -11,7 +11,7 @@ import { planSignatureFile, sniffImageType, type SignatureFileFailure } from '..
 import { APP_ID } from '../../../shared/constants/app'
 import ConfirmDialog from '../../components/ConfirmDialog'
 import ProblemDetails from '../../components/ProblemDetails'
-import { btnOutline, btnPrimary, card } from '../../components/styles'
+import { btnOutline, btnPrimary, card, cardHeader, cardTitle } from '../../components/styles'
 import { useMeAccess } from '../../features/access/useMeAccess'
 import { useMeServices } from '../../features/services'
 import { useRemoveSignature, useUploadSignature } from '../../features/signature/useSignatureActions'
@@ -105,10 +105,13 @@ export default function SignatureCard() {
   }
 
   return (
-    <section aria-labelledby={`${id}-title`} className={`${card} flex flex-col gap-4 p-5`}>
-      <h2 id={`${id}-title`} className="text-lg font-semibold">
+    <section aria-labelledby={`${id}-title`} className={`${card} overflow-hidden`}>
+      <div className={cardHeader}>
+        <h2 id={`${id}-title`} className={cardTitle}>
         {t('signature.title')}
-      </h2>
+        </h2>
+      </div>
+      <div className="flex flex-col gap-4 p-5">
       <p className="text-sm text-aura-muted">{t('signature.intro')}</p>
       {savedAt && (
         <p role="status" className="text-sm text-status-success">
@@ -159,6 +162,7 @@ export default function SignatureCard() {
           <p>{t('signature.removeBody')}</p>
         </ConfirmDialog>
       )}
+      </div>
     </section>
   )
 }

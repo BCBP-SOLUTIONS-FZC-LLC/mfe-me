@@ -8,7 +8,7 @@ export const tr = 'border-t border-aura-border transition-colors hover:bg-aura-h
 export const td = 'px-3 py-3 align-middle'
 export const tdMessage = 'px-4 py-8 text-center text-aura-muted'
 export const input =
-  'w-full rounded-lg border border-aura-border bg-aura-canvas px-3 py-2 text-sm text-aura-text outline-none ring-1 ring-transparent focus:border-aura-primary/40 focus:bg-aura-surface focus:ring-aura-primary/25'
+  'w-full rounded-lg border border-aura-border bg-transparent px-3 py-2 text-sm text-aura-text outline-none ring-1 ring-transparent placeholder:text-aura-muted/50 focus:border-aura-primary/40 focus:ring-aura-primary/25'
 export const btnPrimary =
   'inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-aura-primary px-4 py-2 text-sm font-semibold text-white shadow-login-btn transition-opacity hover:brightness-90 disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none'
 export const btnOutline =

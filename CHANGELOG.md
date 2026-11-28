@@ -14,6 +14,7 @@ All notable changes to this remote are documented here. The format follows [Keep
 
 ### Changed (2026-11-27 — cards as in the product reference)
 
+- **Card headers as in mfe-admin's audit log:** `cardHeader` and `cardTitle` in `src/presentation/components/styles.ts` (a transparent header with a faint rule under it, `px-5 py-4`, the title bold at `text-base`); My account's cards (Profile, My access, Availability, Signature) use them, with the card's body in its own `p-5` block under the header. *(Previously: a `text-lg` title inside the card's padding, no rule.)*
 - **Inter only:** `font-sans` in `tailwind.config.js` is `Inter Variable` then the system fonts, and `@fontsource-variable/geist` is removed (`package.json`, `package-lock.json`, the import in `main.tsx`), as in web-shell, so the remote draws in the same typeface standalone and inside the shell.
 - **Cards have no border and the reference's soft shadow:** `card` in `src/presentation/components/styles.ts` is `rounded-[18px] border border-white/70 bg-aura-surface shadow-dash` (the reference's faint white edge) (it was `rounded-xl` with a `border-aura-border` border), and `shadow-dash` in `tailwind.config.js` is `0 10px 30px rgba(30,27,75,.06), 0 2px 6px rgba(30,27,75,.04)`. The same change as mfe-admin's, so the two remotes' cards match. The notices (`.notice`, e.g. "We couldn't load your availability") are cards too: the reference's shadow, 18px corners and white edge in place of the grey border, and they keep their coloured edge.
 

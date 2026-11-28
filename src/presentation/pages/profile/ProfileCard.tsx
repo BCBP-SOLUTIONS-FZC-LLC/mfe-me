@@ -12,7 +12,7 @@ import ConflictDialog from '../../components/ConflictDialog'
 import Field from '../../components/Field'
 import ProblemDetails from '../../components/ProblemDetails'
 import SavedNotice from '../../components/SavedNotice'
-import { btnOutline, btnPrimary, card, input } from '../../components/styles'
+import { btnOutline, btnPrimary, card, cardHeader, cardTitle, input } from '../../components/styles'
 import { useMeAccess } from '../../features/access/useMeAccess'
 import { useUpdateProfile, useRevertDirectoryValue } from '../../features/profile/useProfileActions'
 import { useMeServices } from '../../features/services'
@@ -127,10 +127,13 @@ export default function ProfileCard({ profile, onReload }: { profile: MyProfile;
 
   const busy = update.isPending || revert.isPending
   return (
-    <section aria-labelledby={`${id}-title`} className={`${card} flex flex-col gap-4 p-5`}>
-      <h2 id={`${id}-title`} className="text-lg font-semibold">
+    <section aria-labelledby={`${id}-title`} className={`${card} overflow-hidden`}>
+      <div className={cardHeader}>
+        <h2 id={`${id}-title`} className={cardTitle}>
         {t('profile.title')}
-      </h2>
+        </h2>
+      </div>
+      <div className="flex flex-col gap-4 p-5">
       <form
         className="flex flex-col gap-4"
         noValidate
@@ -208,6 +211,7 @@ export default function ProfileCard({ profile, onReload }: { profile: MyProfile;
           <DraftSummary draft={draft} />
         </ConflictDialog>
       )}
+      </div>
     </section>
   )
 }

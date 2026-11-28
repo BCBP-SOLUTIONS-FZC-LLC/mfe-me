@@ -1,6 +1,10 @@
 // Shared look of the admin screens, from the dashboard's Aura tokens: a card, a data table inside it, and
 // the pill buttons. One place, so every screen matches.
 export const card = 'rounded-[18px] border border-white/70 bg-aura-surface shadow-dash'
+// A card's header as in mfe-admin's audit log: transparent, a faint rule under it, the title on the start side and
+// the card's controls on the end side, wrapping on a narrow screen. The body below it carries its own padding.
+export const cardHeader = 'flex flex-wrap items-center justify-between gap-2 border-b border-aura-border px-5 py-4'
+export const cardTitle = 'text-base font-bold text-aura-text'
 export const tableWrap = `${card} overflow-x-auto`
 export const table = 'w-full min-w-[48rem] border-collapse text-start text-sm'
 export const th = 'px-3 py-3 text-start text-xs font-semibold uppercase tracking-wide text-aura-muted'
